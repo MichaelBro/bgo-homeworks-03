@@ -11,7 +11,7 @@ func main() {
 		Issuer:   "MasterCard",
 		Balance:  73_000_00,
 		Currency: "RUB",
-		Number:   "4400 6600 5500 1234",
+		Number:   "5500 6600 5500 1234",
 		Icon:     "/images/icon.svg",
 		Transactions: []card.Transaction{
 			{
@@ -25,7 +25,7 @@ func main() {
 				Id:        2,
 				Amount:    2_000_00,
 				Timestamp: 1608768400,
-				MCC:       "6540",
+				MCC:       card.MccRefill,
 				Status:    "success",
 			},
 			{
@@ -35,7 +35,29 @@ func main() {
 				MCC:       "5411",
 				Status:    "processing",
 			},
+			{
+				Id:        4,
+				Amount:    203_91,
+				Timestamp: 1608853818,
+				MCC:       "5812",
+				Status:    "processing",
+			},
 		},
 	}
-	fmt.Println(master)
+
+	anyTransaction := card.Transaction{
+		Id:        5,
+		Amount:    200_000_00,
+		Timestamp: 1608853818,
+		MCC:       "5815",
+		Status:    "reject",
+	}
+
+	card.AddTransaction(master, anyTransaction)
+
+	mccArrayToSum := []string{"5812", "5411"}
+	sum := card.SumByMCC(master.Transactions, mccArrayToSum)
+
+	fmt.Println("MasterCard: ", master)
+	fmt.Println(sum)
 }

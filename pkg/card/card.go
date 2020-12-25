@@ -17,3 +17,29 @@ type Card struct {
 	Icon         string
 	Transactions []Transaction
 }
+
+const MccRefill = "6000"
+
+func AddTransaction(card *Card, transaction Transaction) {
+	card.Transactions = append(card.Transactions, transaction)
+}
+
+func SumByMCC(transactions []Transaction, mcc []string) int64 {
+	var sum int64
+	for _, transaction := range transactions {
+		if IsMCCInTransaction(transaction.MCC, mcc) {
+			sum += transaction.Amount
+		}
+	}
+	return sum
+}
+
+func IsMCCInTransaction(mcc string, array []string) (status bool) {
+	status = false
+	for _, currentMcc := range array {
+		if mcc == currentMcc {
+			status = true
+		}
+	}
+	return
+}
