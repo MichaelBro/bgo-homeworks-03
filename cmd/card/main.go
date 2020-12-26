@@ -58,6 +58,16 @@ func main() {
 	mccArrayToSum := []string{"5812", "5411"}
 	sum := card.SumByMCC(master.Transactions, mccArrayToSum)
 
+	category := card.TranslateMCC(master.Transactions[1].MCC)
+
 	fmt.Println("MasterCard: ", master)
-	fmt.Println(sum)
+	fmt.Println("Sum by MCC: ", sum)
+	fmt.Println("Category by MCC: ", category)
+
+	category = card.TranslateMCC("6666")
+	fmt.Println("Category by MCC: ", category)
+
+	category = card.TranslateMCC(master.Transactions[2].MCC)
+	fmt.Println("Category by MCC: ", category)
+
 }
